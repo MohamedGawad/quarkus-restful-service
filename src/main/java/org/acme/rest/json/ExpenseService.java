@@ -5,12 +5,19 @@ import java.util.HashMap;
 import java.util.Set;
 import java.util.UUID;
 import javax.enterprise.context.ApplicationScoped;
-
+import javax.annotation.PostConstruct;
+import org.acme.rest.json.Expense.PaymentMethod;
 
 @ApplicationScoped
 public class ExpenseService {
     private Set<Expense> expenses = Collections.newSetFromMap(Collections.synchronizedMap(new HashMap<>()));
 
+    @PostConstruct
+    void  initData() {
+         expenses.add(new Expense("gawad", PaymentMethod.CASH, "150.50"));
+         expenses.add(new Expense("Civilization VI", PaymentMethod.DEBIT_CARD, "25.00"));
+    }
+    
     public Set<Expense> list() {
         return expenses;
     }
